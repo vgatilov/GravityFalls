@@ -31,7 +31,7 @@
     },
     "download_trades": false,
     "exchange": {
-        "name": "kraken",
+        "name": "binance",
         "key": "",
         "secret": "",
         "ccxt_config": {"enableRateLimit": true},
@@ -41,7 +41,7 @@
             // Enable the below for downoading data.
             //"rateLimit": 3100
         },
-        "pair_whitelist": [
+        "pair_whitelist": ["ETH/USDT", "BTC/USDT"
         ],
         "pair_blacklist": [
 
@@ -49,7 +49,7 @@
     },
     "pairlists": [
         {
-            "method": "VolumePairList",
+            "method": "StaticPairList",
             "number_assets": 20,
             "sort_key": "quoteVolume",
             "min_value": 0,
