@@ -1,5 +1,7 @@
+from turtle import fillcolor, title
 import pandas as pd
-from matplotlib import pyplot as plt
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 
 class Candles:
@@ -13,7 +15,27 @@ class Candles:
         self.df = self.df[['unix_ds', 'ds', 'O', 'H', 'L', 'C', 'V']]
         
     def plot(self) -> None:
-        self.df.set_index('ds').loc[:, ['O', 'H', 'L', 'C']].plot(figsize=(15, 5))
-        plt.show()
-        self.df.set_index('ds').loc[:, 'V'].plot(figsize=(15, 5))
-        plt.show()
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
+        fig.add_traces(
+            go.Candlestick(
+                x=self.df['ds'],
+                open=self.df['O'],
+                high=self.df['H'],
+                low=self.df['L'],
+                close=self.df['C']
+                ),
+            secondary_ys=[True]
+            )
+        fig.add_traces(
+            go.Bar(
+                x=self.df['ds'],
+                y=self.df['V'],
+                marker_color='rgb(0,0,255)',
+                opacity=0.5
+                ),
+            secondary_ys=[False]
+            )
+        fig.update_layout(
+            margin=dict(l=5, r=5, t=5, b=5),
+        )
+        fig.show()
